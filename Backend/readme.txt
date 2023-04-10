@@ -66,6 +66,10 @@ if (!place) {
 ------------------------------------------------------------------------------------------------------------------------------
 Architecture: 
 MVC is good way of Keeping the code
+------------------------------------------------------------------------------------------------------------------------------
+Errors: How to Handle Common Errors
+Error COming from any routes
+Errors to handle when No such route is present
 
 
 

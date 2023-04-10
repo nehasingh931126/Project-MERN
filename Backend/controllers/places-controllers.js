@@ -1,6 +1,6 @@
 const DUMMY_JSON = require("../json-file/dummy.js");
 const HttpError = require("../model/http-error");
-const uuid = require('uuid/v4');
+const { v4: uuid } = require("uuid");
 
 const getPlaceById = (req, res, next) => {
   const placeId = req.params.placeId;
