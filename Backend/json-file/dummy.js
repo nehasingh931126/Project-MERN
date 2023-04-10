@@ -1,4 +1,4 @@
-[
+const DUMMY_JSON  = [
     {
         "id": "p1",
         "title":"Empire State Building",
@@ -11,3 +11,5 @@
         "creator": "u1"
     }
 ]
+
+module.exports = DUMMY_JSON;

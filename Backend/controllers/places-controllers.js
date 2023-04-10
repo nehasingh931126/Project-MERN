@@ -1,9 +1,10 @@
-const PLACE_JSON = require("../json-file/dummy.json");
+const DUMMY_JSON = require("../json-file/dummy.js");
 const HttpError = require("../model/http-error");
+const uuid = require('uuid/v4');
 
 const getPlaceById = (req, res, next) => {
   const placeId = req.params.placeId;
-  const place = PLACE_JSON.find((p) => p.id == placeId);
+  const place = DUMMY_JSON.find((p) => p.id == placeId);
   // if (!place) {
   //   return res
   //     .status(404)
@@ -23,7 +24,7 @@ const getPlaceById = (req, res, next) => {
 
 const getPlaceByUserId = (req, res, next) => {
   const { userId } = req.params;
-  const place = PLACE_JSON.find((place) => place.creator == userId);
+  const place = DUMMY_JSON.find((place) => place.creator == userId);
   //   if(!place) {
   //     return res.status(404).json({message: 'Could not find a place for the provided userid.'});
   //   }
@@ -37,9 +38,23 @@ const getPlaceByUserId = (req, res, next) => {
     next(new HttpError("Could not find a place for the provided UserId.", 404));
   }
 
-  res.status(200).json({ places });
+  res.status(200).json({ place });
 };
 
+const createPlace = (req, res, next)=> {
+  const {title, description, coordinates, address, creator} = req.body;
+  const createdPlace = {
+    id:uuid(),
+    title,
+    description,
+    location: coordinates,
+    address,
+    creator
+  };
+  DUMMY_JSON.push(createdPlace); //unshift(createPlace);
+  res.status(201).json({ places: createdPlace });
+}
 
 exports.getPlaceById = getPlaceById;
 exports.getPlaceByUserId = getPlaceByUserId;
+exports.createPlace = createPlace;

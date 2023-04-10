@@ -1,13 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express();
+
 const placesRoutes = require('./routes/places-routes');
 
-// app.use(bodyParser);
+const app = express();
 
+app.use(bodyParser.json());
 const PORT = process.env.PORT || 5000;
-
 
 app.use('/api/places',placesRoutes);
 app.use((error, req, res, next)=> {
