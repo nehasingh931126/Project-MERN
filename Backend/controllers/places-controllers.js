@@ -24,7 +24,7 @@ const getPlaceById = (req, res, next) => {
 
 const getPlaceByUserId = (req, res, next) => {
   const { userId } = req.params;
-  const place = DUMMY_JSON.find((place) => place.creator == userId);
+  const place = DUMMY_JSON.filter((place) => place.creator == userId);
   //   if(!place) {
   //     return res.status(404).json({message: 'Could not find a place for the provided userid.'});
   //   }
@@ -34,7 +34,7 @@ const getPlaceByUserId = (req, res, next) => {
   //   return next(error);
   // }
 
-  if (!place) {
+  if (!place || place.length ===0) {
     next(new HttpError("Could not find a place for the provided UserId.", 404));
   }
 

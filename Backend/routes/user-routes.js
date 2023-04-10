@@ -1,11 +1,12 @@
 const express = require('express');
-const PLACE_JSON = require('./json-file/dummy.json');
 const router = express.Router();
+const userController = require('../controllers/users-controllers');
+router.get("/", userController.getUsers);
 
-router.get(':/userId', (req, res, next)=>{
-    const {userId} = req.params;
-    const placesById = PLACE_JSON.find((place) => place.creator == userId);
-    res.status(200).send({placesById});
-})
+router.post("/signup", userController.signup);
+
+router.post("/login", userController.login);
+
+
 
 module.exports = router;
