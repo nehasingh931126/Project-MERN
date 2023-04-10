@@ -53,7 +53,19 @@ if (!place) {
   error.code = 404;
   return next(error);
 }
---------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------
+Good way to create the Model and keep the Separate class for Errors Refer to the model and http_erro.js
+if (!place) {
+      throw new HttpError(
+        "Could not find a place for the provided UserId.",
+        404
+      );
+    }
+------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 

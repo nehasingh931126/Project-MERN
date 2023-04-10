@@ -1,5 +1,6 @@
 const express = require("express");
 const PLACE_JSON = require("./json-file/dummy.json"); 
+const HttpError = require('../model/http-error');
 const router = express.Router();
 
 router.get("/user/:userId", (req, res, next) => {
@@ -8,12 +9,16 @@ router.get("/user/:userId", (req, res, next) => {
 //   if(!place) {
 //     return res.status(404).json({message: 'Could not find a place for the provided userid.'});
 //   }
-if (!place) {
-  const error = new Error("Could not find a place for the provided UserId.");
-  error.code = 404;
-  return next(error);
-}
+// if (!place) {
+//   const error = new Error("Could not find a place for the provided UserId.");
+//   error.code = 404;
+//   return next(error);
+// }
 
+  if (!place) {
+    next(new HttpError('Could not find a place for the provided UserId.', 404));
+  }
+  
   res.status(200).json({ places });
 });
 
@@ -25,10 +30,17 @@ router.get('/:placeId', (req, res, next)=> {
     //     .status(404)
     //     .json({ message: "Could not find a place for the provided id." });
     // }
-    if(!place) {
-        const error = new Error('Could not find a place for the provided Id.');
-        error.code = 404
-        throw(error)
+    // if(!place) {
+    //     const error = new Error('Could not find a place for the provided Id.');
+    //     error.code = 404
+    //     throw(error)
+    // }
+
+    if (!place) {
+      throw new HttpError(
+        "Could not find a place for the provided id.",
+        404
+      );
     }
     res.status(200).json({place});
 });
