@@ -49,7 +49,7 @@ const createPlace = async (req, res, next)=> {
 
   if(!errors.isEmpty()) {
     console.log(422);
-    next(new HttpError("Invalid input passed, please check your data", 422));
+    return next(new HttpError("Invalid input passed, please check your data", 422));
   }
 
   const {title, description, address, creator} = req.body;
@@ -59,7 +59,7 @@ const createPlace = async (req, res, next)=> {
     coordinates = await getCoordsForAddress(address);
     console.log(coordinates);
   } catch(error) {
-    next(error)
+    return next(error)
   }
   const createdPlace = {
     id:uuid(),

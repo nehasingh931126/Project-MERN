@@ -85,7 +85,18 @@ encodeURIComponent
 -----------------------------------------------------------------------------------------------------------------------
 When you are working with Async code better to use the next() then using the throw it will not work correclty
 
+With next you need to add the return since if you donot add it will continue its execution further 
+with throw it will stop the execution there itself so we donot need to add return with throw
+-----------------------------------------------------------------------------------------------------------------------
 
+
+Useful Resources & Links
+
+Official Node.js Docs: https://nodejs.org/en/docs/
+
+Official Express.js Docs: https://expressjs.com/
+
+Further Node + Express Resources: https://academind.com/learn/node-js/
 
 
 
