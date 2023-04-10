@@ -9,5 +9,9 @@ router.get("/:placeId", placesController.getPlaceById);
 
 router.post("/", placesController.createPlace);
 
+router.patch("/:placeId", placesController.updatePlaceById);
+
+router.delete("/:placeId", placesController.deletePlaceById);
+
 module.exports = router
 

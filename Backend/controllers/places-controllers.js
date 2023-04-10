@@ -1,4 +1,4 @@
-const DUMMY_JSON = require("../json-file/dummy.js");
+let DUMMY_JSON = require("../json-file/dummy.js");
 const HttpError = require("../model/http-error");
 const { v4: uuid } = require("uuid");
 
@@ -55,6 +55,28 @@ const createPlace = (req, res, next)=> {
   res.status(201).json({ places: createdPlace });
 }
 
+const updatePlaceById = (req, res, next) => {
+  const {placeId} = req.params;
+  const {title, description} = req.body;
+  const updatedPlace = {...DUMMY_JSON.find(place=> place.id == placeId)};
+  const placeIndex = DUMMY_JSON.findIndex((place) => place.id == placeId);
+  updatedPlace.title = title;
+  updatedPlace.description = description;
+
+  DUMMY_JSON[placeIndex] = updatedPlace;
+
+  res.status(200).json({place: updatedPlace});
+};
+
+const deletePlaceById = (req, res, next) => {
+  const {placeId} = req.params;
+  // DUMMY_JSON.splice(DUMMY_JSON.findIndex((place) => place.id === placeId), 1);
+  DUMMY_JSON = DUMMY_JSON.filter((place) => place.id !== placeId);
+  res.status(200).json({message: `Deleted the record for ${placeId}`});
+};
 exports.getPlaceById = getPlaceById;
 exports.getPlaceByUserId = getPlaceByUserId;
 exports.createPlace = createPlace;
+exports.updatePlaceById = updatePlaceById;
+exports.deletePlaceById = deletePlaceById;
+
