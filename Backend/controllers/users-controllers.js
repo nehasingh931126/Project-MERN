@@ -11,7 +11,19 @@ const getUsers = (req, res, next) => {
 };
 
 const signup = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(422);
+      throw new HttpError("Invalid input passed, please check your data", 422);
+    }
     const {name, email, password } = req.body;
+    const hasUser = DUMMY_JSON.find(u=> u.email === email);
+    if(hasUser) {
+        throw new HttpError(
+          "Could not create user, email already exists",
+          401
+        );
+    }
     const newUser = {
         id: uuid(),
         name,
@@ -23,6 +35,11 @@ const signup = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(422);
+      throw new HttpError("Invalid input passed, please check your data", 422);
+    }
     const {email, password} = req.body;
     const identifiedUser = DUMMY_JSON.find(user=> user.email === email);
     if (!identifiedUser || identifiedUser.password !== password) {

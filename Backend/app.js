@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 const PORT = process.env.PORT || 5000;
 
 app.use('/api/places',placesRoutes);
-app.use("/app/user", usersRoutes);
+app.use("/api/users", usersRoutes);
 
 // this will be called when there is no route matching
 app.use((req, res, next)=> {

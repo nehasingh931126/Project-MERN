@@ -70,6 +70,16 @@ MVC is good way of Keeping the code
 Errors: How to Handle Common Errors
 Error COming from any routes
 Errors to handle when No such route is present
+-----------------------------------------------------------------------------------------------------------------------
+express-validator: one of the packages that can be used for validating the request
+-----------------------------------------------------------------------------------------------------------------------
+422 Unprocessable Content
+The HyperText Transfer Protocol (HTTP) 422 Unprocessable Content response status code indicates that the server 
+understands the content type of the request entity, and the syntax of the request entity is correct, 
+but it was unable to process the contained instructions
+-----------------------------------------------------------------------------------------------------------------------
+
+
 
 
 

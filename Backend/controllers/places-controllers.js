@@ -1,6 +1,7 @@
 let DUMMY_JSON = require("../json-file/dummy.js");
 const HttpError = require("../model/http-error");
 const { v4: uuid } = require("uuid");
+const {validationResult}  = require('express-validator');
 
 const getPlaceById = (req, res, next) => {
   const placeId = req.params.placeId;
@@ -42,6 +43,12 @@ const getPlaceByUserId = (req, res, next) => {
 };
 
 const createPlace = (req, res, next)=> {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    console.log(422);
+    throw new HttpError("Invalid input passed, please check your data", 422);
+  }
+
   const {title, description, coordinates, address, creator} = req.body;
   const createdPlace = {
     id:uuid(),
@@ -56,6 +63,11 @@ const createPlace = (req, res, next)=> {
 }
 
 const updatePlaceById = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(422);
+    throw new HttpError("Invalid input passed, please check your data", 422);
+  }
   const {placeId} = req.params;
   const {title, description} = req.body;
   const updatedPlace = {...DUMMY_JSON.find(place=> place.id == placeId)};
@@ -70,6 +82,9 @@ const updatePlaceById = (req, res, next) => {
 
 const deletePlaceById = (req, res, next) => {
   const {placeId} = req.params;
+  if(!DUMMY_JSON.find(p=>p.id ===placeId)) {
+    throw new HttpError('Could not find a place for that id', 404);
+  }
   // DUMMY_JSON.splice(DUMMY_JSON.findIndex((place) => place.id === placeId), 1);
   DUMMY_JSON = DUMMY_JSON.filter((place) => place.id !== placeId);
   res.status(200).json({message: `Deleted the record for ${placeId}`});
