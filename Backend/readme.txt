@@ -78,8 +78,12 @@ The HyperText Transfer Protocol (HTTP) 422 Unprocessable Content response status
 understands the content type of the request entity, and the syntax of the request entity is correct, 
 but it was unable to process the contained instructions
 -----------------------------------------------------------------------------------------------------------------------
-
-
+Geocoding Api: do check this
+-----------------------------------------------------------------------------------------------------------------------
+axios is a good package for HTTP Interactions
+encodeURIComponent
+-----------------------------------------------------------------------------------------------------------------------
+When you are working with Async code better to use the next() then using the throw it will not work correclty
 
 
 
