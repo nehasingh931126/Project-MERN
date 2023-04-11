@@ -110,13 +110,15 @@ const updatePlaceById = async (req, res, next) => {
   res.status(200).json({ place:  place.toObject({getters: true})});
 };
 
-const deletePlaceById = (req, res, next) => {
+const deletePlaceById = async (req, res, next) => {
   const {placeId} = req.params;
-  if(!DUMMY_JSON.find(p=>p.id ===placeId)) {
-    throw new HttpError('Could not find a place for that id', 404);
+  try{
+    await PlaceModel.findByIdAndRemove(placeId);
+  } catch(error) {
+    const errorObject = new HttpError("Cannot delete the record, something went wrong", 500)
+    return next(errorObject);
   }
-  // DUMMY_JSON.splice(DUMMY_JSON.findIndex((place) => place.id === placeId), 1);
-  DUMMY_JSON = DUMMY_JSON.filter((place) => place.id !== placeId);
+  
   res.status(200).json({message: `Deleted the record for ${placeId}`});
 };
 exports.getPlaceById = getPlaceById;

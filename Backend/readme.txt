@@ -110,3 +110,7 @@ the find in mongodb returns the cursor Since there can be large chunk of data yo
 method in the mongoose do check it: New thing to learn
 
 ----------------------------------------------------------------------------------------------------------------------
+email: { type: String, email: true, required: true, unique: true },
+
+Unique: is good for indexing
+----------------------------------------------------------------------------------------------------------------------
