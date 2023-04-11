@@ -2,14 +2,8 @@ const HttpError = require("../model/http-error");
 const { v4: uuid } = require("uuid");
 const UserModel = require("../model/users");
 const {validationResult}  = require('express-validator');
-const DUMMY_JSON = [
-  {
-    id: "u1",
-    name: "ns",
-    email: "ns.ps@gmail.com",
-    password: "test",
-  },
-];
+
+
 const getUsers = async (req, res, next) => {
   let userList;
   try{
@@ -28,7 +22,7 @@ const signup = async (req, res, next) => {
     console.log(422);
     return next(new HttpError("Invalid input passed, please check your data", 422));
   }
-  const { name, email, password, places } = req.body;
+  const { name, email, password } = req.body;
   let existingUser;
   try {
     existingUser = await UserModel.findOne({ email: email });
@@ -49,7 +43,7 @@ const signup = async (req, res, next) => {
       email,
       password,
       image: "https://image.com",
-      places,
+      places: [],
     });
 
     await newUser.save();

@@ -114,3 +114,7 @@ email: { type: String, email: true, required: true, unique: true },
 
 Unique: is good for indexing
 ----------------------------------------------------------------------------------------------------------------------
+Estabilisting relation between user and places
+places: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }],
+
+creator: {type: mongoose.Types.ObjectId, ref: 'User' ,required: true}

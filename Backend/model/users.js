@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   email: { type: String, index: true,required: true, unique: true },
   password: { type: String, required: true, minlength: 6 },
   image: { type: String, required: true },
-  places: { type: String, required: true },
+  places: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }],
 });
 
 // UserSchema.plugin(uniqueValidator); // this is to validate only one email address is present in the database 
