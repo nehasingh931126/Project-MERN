@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const HttpError = require('./model/http-error');
-
+const mongoose = require('mongoose');
 const placesRoutes = require('./routes/places-routes');
 const usersRoutes = require('./routes/user-routes');
 const app = express();
@@ -26,6 +26,13 @@ app.use((error, req, res, next)=> {
   res.json({message: error.message || 'An Unknown error occured!'})
 })
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+mongoose
+  .connect(
+    "mongodb+srv://iamnehasinghatwork:9JaAec4dJ83TZnOx@cluster1.gshb4sd.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(
+    app.listen(PORT, () => {
+      console.log(`Listening on port ${PORT}`);
+    })
+  )
+  .catch();

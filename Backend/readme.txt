@@ -98,5 +98,11 @@ Official Express.js Docs: https://expressjs.com/
 
 Further Node + Express Resources: https://academind.com/learn/node-js/
 
+----------------------------------------------------------------------------------------------------------------------
+Mongoose: Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships 
+between data, provides schema validation, and is used to translate between objects in code and the representation of 
+those objects in MongoDB.
+
+
 
 
