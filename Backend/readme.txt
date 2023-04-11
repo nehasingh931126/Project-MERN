@@ -118,3 +118,25 @@ Estabilisting relation between user and places
 places: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }],
 
 creator: {type: mongoose.Types.ObjectId, ref: 'User' ,required: true}
+
+----------------------------------------------------------------------------------------------------------------------
+You can add the transaction feature to your code 
+start the session
+start the transaction
+add the operations required
+commti the transaction
+
+here is the Example
+
+const session = await mongoose.startSession();
+      session.startTransaction();
+      await createdPlace.save({session:session});
+      user.places.push(createPlace);
+      await user.save({ session: session });
+      await session.commitTransaction();
+
+----------------------------------------------------------------------------------------------------------------------
+Some notes about populate
+Populate method will only be used once you have the relation between the collections otherwise it wont work
+Here is one example:
+place = await PlaceModel.findById(placeId).populate('creator');
