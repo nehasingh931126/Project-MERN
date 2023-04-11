@@ -43,7 +43,7 @@ const getPlaceById = async (req, res, next) => {
 const getPlaceByUserId = async (req, res, next) => {
   const { userId } = req.params;
   let userWithPlace;
-
+  // let places
   try {
     // one more way of writing this
     // places = await PlaceModel.find({ creator: userId });
@@ -55,6 +55,8 @@ const getPlaceByUserId = async (req, res, next) => {
     );
     return next(errorObject);
   }
+
+  // if (!places || places.length === 0) {
   if (!userWithPlace || userWithPlace.places.length === 0) {
     return next(
       new HttpError("Could not find a place for the provided UserId.", 404)
@@ -111,10 +113,11 @@ const createPlace = async (req, res, next) => {
     const session = await mongoose.startSession();
     session.startTransaction();
     await createdPlace.save({ session: session });
-    user.places.push(createPlace);
+    await user.places.push(createdPlace);
     await user.save({ session: session });
     await session.commitTransaction();
   } catch (error) {
+    console.log(error.message);
     return next(new HttpError("Creating places failed, please try again", 500));
   }
 
@@ -168,9 +171,9 @@ const deletePlaceById = async (req, res, next) => {
   try {
     const session = await mongoose.startSession();
     session.startTransaction();
-    await place.remove({ session: session });
+    await place.deleteOne({ session: session });   
     await place.creator.places.pull(place);
-    await place.creator.save({ session: session });
+     await place.creator.save({ session: session });
     await session.commitTransaction();
   } catch (error) {
     console.log(error);
