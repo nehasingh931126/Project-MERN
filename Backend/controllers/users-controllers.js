@@ -1,5 +1,6 @@
 const HttpError = require("../model/http-error");
-const {v4: uuid} = require('uuid')
+const {v4: uuid} = require('uuid');
+const UserModel = require('../model/users');
 const DUMMY_JSON = [{
     id: 'u1',
     name: 'ns',
@@ -10,20 +11,19 @@ const getUsers = (req, res, next) => {
   return res.json({ users: DUMMY_JSON });
 };
 
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(422);
       throw new HttpError("Invalid input passed, please check your data", 422);
     }
     const {name, email, password } = req.body;
-    const hasUser = DUMMY_JSON.find(u=> u.email === email);
-    if(hasUser) {
-        throw new HttpError(
-          "Could not create user, email already exists",
-          401
-        );
+    try {
+      const existingUser = await User.findOne({email: email});
+    } catch (error) {
+      return next(new HttpError('Singup failed, please try again later'))
     }
+     
     const newUser = {
         id: uuid(),
         name,
