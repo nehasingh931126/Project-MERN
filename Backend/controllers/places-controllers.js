@@ -3,7 +3,7 @@ const HttpError = require("../model/http-error");
 const { v4: uuid } = require("uuid");
 const {validationResult}  = require('express-validator');
 const {getCoordsForAddress} = require('../utils/location');
-const { get } = require("../routes/places-routes.js");
+const PlaceModel = require('../model/place');
 
 const getPlaceById = (req, res, next) => {
   const placeId = req.params.placeId;
@@ -61,15 +61,21 @@ const createPlace = async (req, res, next)=> {
   } catch(error) {
     return next(error)
   }
-  const createdPlace = {
-    id:uuid(),
+  const createdPlace = new PlaceModel({
     title,
     description,
     location: coordinates,
     address,
-    creator
-  };
-  DUMMY_JSON.push(createdPlace); //unshift(createPlace);
+    creator,
+    image: 'http://dummy.jimg'
+  });
+
+  try{
+    await createdPlace.save();
+  } catch (error) {
+    return next(new HttpError('Creating places failed, please try again', 500))
+  }
+  
   res.status(201).json({ places: createdPlace });
 }
 
