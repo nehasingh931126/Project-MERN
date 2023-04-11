@@ -5,9 +5,19 @@ const {validationResult}  = require('express-validator');
 const {getCoordsForAddress} = require('../utils/location');
 const PlaceModel = require('../model/place');
 
-const getPlaceById = (req, res, next) => {
+const getPlaceById = async (req, res, next) => {
   const placeId = req.params.placeId;
-  const place = DUMMY_JSON.find((p) => p.id == placeId);
+  console.log(placeId);
+  let place;
+  try{
+    place = await PlaceModel.findById(placeId);
+    console.log(place);
+  } catch(error) {
+    const errorObject = new HttpError('Something went wrong, cannot find place', 500);
+    return next(errorObject);
+  }
+  
+  // const place = DUMMY_JSON.find((p) => p.id == placeId);
   // if (!place) {
   //   return res
   //     .status(404)
@@ -22,7 +32,7 @@ const getPlaceById = (req, res, next) => {
   if (!place) {
     throw new HttpError("Could not find a place for the provided id.", 404);
   }
-  res.status(200).json({ place });
+  res.status(200).json({ place: place.toObject({getters: true})});
 };
 
 const getPlaceByUserId = (req, res, next) => {

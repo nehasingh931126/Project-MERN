@@ -103,6 +103,7 @@ Mongoose: Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node
 between data, provides schema validation, and is used to translate between objects in code and the representation of 
 those objects in MongoDB.
 
-
+ place: place.toObject({getters: true}): ?? What it does
+ 
 
 
