@@ -104,6 +104,9 @@ between data, provides schema validation, and is used to translate between objec
 those objects in MongoDB.
 
  place: place.toObject({getters: true}): ?? What it does
- 
 
+the find method is available in both the mongodb and also in mongoose 
+the find in mongodb returns the cursor Since there can be large chunk of data you can also implement the cursor 
+method in the mongoose do check it: New thing to learn
 
+----------------------------------------------------------------------------------------------------------------------
