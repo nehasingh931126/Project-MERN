@@ -63,6 +63,10 @@ Portals in react in the end a concept that allows us to project or render a reac
 than it would normally would be rendered
 
 Here normally the sidebar will be rendered in the Main Navigation but I need to render in the body
+
 --------------------------------------------------------------------------------------------------------------------
 
+{drawerIsOpen(if this is true) &&  This will render}
+
+--------------------------------------------------------------------------------------------------------------------
 
