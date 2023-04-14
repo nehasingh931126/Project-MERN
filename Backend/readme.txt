@@ -140,3 +140,14 @@ Some notes about populate
 Populate method will only be used once you have the relation between the collections otherwise it wont work
 Here is one example:
 place = await PlaceModel.findById(placeId).populate('creator');
+Some operations are easily performed due to this relation below is the example
+
+place = await PlaceModel.findById(placeId).populate("creator");
+
+await place.deleteOne({ session: session });   
+await place.creator.places.pull(place); // pulling the place out
+await place.creator.save({ session: session });
+----------------------------------------------------------------------------------------------------------------------
+multipart/form-data
+it can deal with the text and also the binary form data
+npm install --save multer
