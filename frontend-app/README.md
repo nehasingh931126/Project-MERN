@@ -42,7 +42,7 @@ text-decoration: none;: Remving the line form the Anchor link
 font: inherit;
 background: transparent
 list-style: none;
-
+box-sizing: border-box;
 <aside>??? What is this Element for 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -67,6 +67,11 @@ Here normally the sidebar will be rendered in the Main Navigation but I need to 
 --------------------------------------------------------------------------------------------------------------------
 
 {drawerIsOpen(if this is true) &&  This will render}
+
+--------------------------------------------------------------------------------------------------------------------
+
+Read about this package: react-transition-group
+CSSTransition
 
 --------------------------------------------------------------------------------------------------------------------
 
